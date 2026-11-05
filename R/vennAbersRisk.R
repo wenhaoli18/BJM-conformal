@@ -26,6 +26,8 @@
 #'
 #' @inheritParams conformalLongitudinal
 #' @param censoring \code{"ipcw"} or \code{"complete"}.
+#' @param test_weight Weight of the added test point in the isotonic fits;
+#'   \code{NULL} (default) uses the mean calibration weight.
 #' @param bandcount1,bandcount2 Passed to \code{predictRisk()}.
 #' @return An object of class \code{"vennAbersRisk"}: \code{risks} (one row
 #'   per test patient: \code{id}, \code{p_bjm}, \code{p0}, \code{p1},
@@ -36,6 +38,7 @@ vennAbersRisk <- function(data_calib, data_test, long_fit_all, survival_fit_all,
                           prediction_time, horizon, time_variable,
                           survival_variable_all, survival_trans_function,
                           censoring = c("ipcw", "complete"),
+                          test_weight = NULL,
                           bandcount1 = 20, bandcount2 = 40) {
   censoring <- match.arg(censoring)
   cols <- surv_columns(survival_fit_all)
@@ -67,7 +70,8 @@ vennAbersRisk <- function(data_calib, data_test, long_fit_all, survival_fit_all,
   } else {
     w <- rep(1, sum(known))
   }
-  xc <- cal$p_bjm[known]; zc <- cal$z[known]; wt <- mean(w)
+  xc <- cal$p_bjm[known]; zc <- cal$z[known]
+  wt <- if (is.null(test_weight)) mean(w) else test_weight
 
   tst <- risk_and_outcome(data_test)
   va <- t(vapply(tst$p_bjm, function(p) {
