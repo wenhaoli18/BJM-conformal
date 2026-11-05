@@ -1,0 +1,20 @@
+Package: BJMconformal
+Title: Conformal Prediction Intervals for Backward Joint Model Predictions
+Version: 0.1.0
+Authors@R: c(
+    person("Wenhao", "Li", email = "wenhaoli.jlu@gmail.com", role = c("aut", "cre")))
+Description: Wraps the public prediction functions of the 'BJM' package
+    (predictLongitudinal() and predictRisk()) with split conformal
+    calibration, giving prediction intervals for future biomarker values,
+    lower prediction bounds for the residual event time, and Venn-Abers
+    interval-valued risks. Coverage holds over patients whether or not the
+    joint model is correctly specified (exactly for biomarkers and for the
+    conservative event-time bound; approximately, through inverse
+    probability of censoring weights, for the weighted variants).
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 3.5.0)
+Imports: BJM (>= 0.3.0), survival, nlme, stats, utils
+Suggests: testthat (>= 3.0.0)
+Remotes: wenhaoli18/BJM
+Config/testthat/edition: 3
