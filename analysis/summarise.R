@@ -64,7 +64,7 @@ if (length(sim_files) > 0) {
     geom_point(size = 2.8) +
     facet_grid(scenario ~ target, scales = "free_x", space = "free_x") +
     scale_colour_manual(values = pal) +
-    labs(x = NULL, y = "Test-set coverage (mean, 5th-95th percentile over replicates)",
+    labs(x = NULL, y = "Coverage (mean, 5th-95th pct over replicates)",
          title = "Nominal 90%: BJM native vs. conformal") + theme_c
   ggsave("results/fig_coverage_sim.png", g, width = 8, height = 5.5, dpi = 200)
 }
@@ -100,7 +100,7 @@ if (file.exists("results/pbc3_splits.rds")) {
     geom_point(size = 2.8) +
     facet_wrap(~ panel, scales = "free_x") +
     scale_colour_manual(values = pal) +
-    labs(x = NULL, y = "Test-set coverage (mean, 5th-95th percentile over splits)",
+    labs(x = NULL, y = "Coverage (mean, 5th-95th pct)",
          title = sprintf("pbc3, landmark %g, horizon %g: %d random splits",
                          x$s, x$h, length(x$results))) + theme_c
   ggsave("results/fig_pbc3.png", g, width = 8, height = 3.8, dpi = 200)
